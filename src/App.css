@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply Syne Regular and Syne Bold */
+body {
+    font-family: 'Syne', sans-serif; /* Fallback to sans-serif */
+}
+
+h1 {
+    font-family: 'Syne', sans-serif; /* Use Syne for h1 */
+    font-weight: 700; /* Bold */
+}
+
+h2 {
+    font-family: 'Syne', sans-serif; /* Use Syne for h2 */
+    font-weight: 400; /* Regular */
+}
+
+/* Add any other styles as needed */
+
