@@ -1,50 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ShoppingBag } from 'lucide-react';
-import Button from './Button';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../context/cartContext';
+import Sidebar from './Sidebar';
 
-// Define a type for the cart items
-interface CartItem {
-  name: string;
-  price: number;
-}
-
-const ShoppingBagIcon: React.FC<{ className?: string; cartItems: CartItem[] }> = ({ className, cartItems }) => {
+const ShoppingBagIcon: React.FC<{ className?: string }> = ({ className }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { cartItems, updateQuantity, removeFromCart } = useCart();
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
 
   const handleBagClick = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleCloseSidebar = () => {
+    setIsOpen(false);
+  };
+
   const handleCheckoutClick = () => {
-    setIsOpen(false); // Close the popup when navigating to checkout
+    setIsOpen(false);
     navigate('/checkout');
   };
 
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   return (
     <div className="relative">
-      <button onClick={handleBagClick} className="p-2 hover:bg-pink-50 rounded-full transition-colors relative">
+      <button
+        onClick={handleBagClick}
+        className="p-2 hover:bg-pink-50 rounded-full transition-colors relative"
+        aria-label="Shopping Bag"
+      >
         <ShoppingBag className={`w-5 h-5 ${className}`} />
-        <span className="absolute top-0 right-0 h-4 w-4 bg-pink-600 rounded-full text-xs text-white flex items-center justify-center">
-          {cartItems.length}
-        </span>
+        {totalItems > 0 && (
+          <span className="absolute top-0 right-0 h-4 w-4 bg-pink-600 rounded-full text-xs text-white flex items-center justify-center">
+            {totalItems}
+          </span>
+        )}
       </button>
-      {isOpen && (
-        <div className="absolute z-10 bg-white shadow-lg rounded-md p-4 mt-2 w-48 left-1/2 transform -translate-x-1/2">
-          <h3 className="font-bold mb-2">Shopping Cart</h3>
-          {cartItems.length === 0 ? (
-            <p>Your cart is empty.</p>
-          ) : (
-            <p>{cartItems.length} item(s) in your cart.</p>
-          )}
-          <Button className="mt-2 bg-pink-600 text-white w-full" onClick={handleCheckoutClick}>
-            Checkout
-          </Button>
-        </div>
-      )}
+      <Sidebar 
+        ref={sidebarRef}
+        isOpen={isOpen}
+        closeSidebar={handleCloseSidebar}
+        cartItems={cartItems}
+        subtotal={subtotal}
+        updateQuantity={updateQuantity}
+        removeFromCart={removeFromCart}
+        handleCheckoutClick={handleCheckoutClick}
+      />
     </div>
   );
 };
 
 export default ShoppingBagIcon;
+

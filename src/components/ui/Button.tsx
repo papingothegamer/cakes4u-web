@@ -6,9 +6,10 @@ interface ButtonProps {
   children: React.ReactNode;
   className?: string;
   to?: string; // Optional prop for navigation
+  disabled?: boolean; // Added disabled prop for button state
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, children, className, to }) => {
+const Button: React.FC<ButtonProps> = ({ onClick, children, className, to, disabled }) => {
   const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -23,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({ onClick, children, className, to }) => 
     <button
       onClick={handleClick}
       className={`px-4 py-2 rounded-md transition-colors ${className}`}
+      disabled={disabled} // Apply the disabled state
     >
       {children}
     </button>

@@ -22,6 +22,11 @@ const LocationSection: React.FC = () => {
     setIsInfoWindowOpen(!isInfoWindowOpen);
   };
 
+  const markerIcon = window.google && window.google.maps ? {
+    url: "/cake-icon.svg",
+    scaledSize: new window.google.maps.Size(40, 40),
+  } : null;
+
   return (
     <section className="py-24 bg-gradient-to-b from-white to-pink-50">
       <div className="container mx-auto px-4">
@@ -112,14 +117,13 @@ const LocationSection: React.FC = () => {
                   ],
                 }}
               >
-                <Marker
-                  position={center}
-                  onClick={handleMarkerClick}
-                  icon={{
-                    url: "/cake-icon.svg",
-                    scaledSize: new window.google.maps.Size(40, 40),
-                  }}
-                />
+                {markerIcon && (
+                  <Marker
+                    position={center}
+                    onClick={handleMarkerClick}
+                    icon={markerIcon}
+                  />
+                )}
                 <AnimatePresence>
                   {isInfoWindowOpen && (
                     <InfoWindow
@@ -149,4 +153,3 @@ const LocationSection: React.FC = () => {
 };
 
 export default LocationSection;
-
