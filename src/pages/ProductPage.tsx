@@ -92,15 +92,21 @@ const ProductPage: React.FC = () => {
   }
 
   return (
-    <div className="container mx-auto mt-16 px-4 py-8">
+    <div className="min-h-screen pt-20 px-4 sm:px-6 lg:px-8">
       {/* Breadcrumb Navigation */}
-      <nav className="flex items-center text-sm text-gray-500 mb-8">
-        <Link to="/" className="hover:text-pink-600 transition-colors">Home</Link>
-        <ChevronRight className="mx-2 h-4 w-4" />
-        <Link to="/categories" className="hover:text-pink-600 transition-colors">Categories</Link>
-        <ChevronRight className="mx-2 h-4 w-4" />
-        <span className="font-medium text-gray-900">{product.name}</span>
-      </nav>
+      <nav className="mb-8 text-sm">
+  <ol className="list-none p-0 inline-flex">
+    <li className="flex items-center">
+      <Link to="/" className="text-gray-600 hover:text-pink-600">Home</Link>
+      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+    </li>
+    <li className="flex items-center">
+      <Link to="/categories" className="text-gray-600 hover:text-pink-600">Categories</Link>
+      <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />
+    </li>
+    <li className="text-pink-600">{product.name}</li>
+  </ol>
+</nav>
 
       {/* Product Details */}
       <div className="flex flex-col lg:flex-row gap-8">

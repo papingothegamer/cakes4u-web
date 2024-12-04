@@ -30,7 +30,7 @@ const Checkout: React.FC = () => {
           <li className="text-pink-600">Checkout</li>
         </ol>
       </nav>
-
+  
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8">
           <div className="p-4 sm:p-6 bg-gray-50 border-b border-gray-200">

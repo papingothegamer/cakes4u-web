@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag } from 'lucide-react';
 import Button from "../ui/Button";
 import { useCart } from "../../context/cartContext";
 import { useNavigate } from "react-router-dom";
@@ -169,3 +169,4 @@ const ProductCard: React.FC<ProductCardProps> = ({
 };
 
 export default ProductCard;
+
