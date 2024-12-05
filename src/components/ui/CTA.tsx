@@ -10,7 +10,7 @@ const CTA: React.FC = () => {
     <section className="relative bg-gradient-to-r from-pink-500 to-purple-600 py-20 overflow-hidden">
       {/* Background Image */}
       <img
-        src="/images/cake-background.jpg"
+        src="/images/category-hero.jpg"
         alt="Delicious cake background"
         className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
       />

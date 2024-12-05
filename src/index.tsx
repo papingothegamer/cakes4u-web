@@ -10,6 +10,7 @@ import RecipesPage from './pages/Recipes';
 import AboutPage from './pages/About';
 import Checkout from './pages/Checkout';
 import { CartProvider } from './context/cartContext';
+import RecipePage from './pages/RecipePage';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -22,6 +23,7 @@ root.render(
             <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/product/:productId" element={<ProductPage />} />
             <Route path="/recipes" element={<RecipesPage />} />
+            <Route path="/recipe/:recipeId" element={<RecipePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/checkout" element={<Checkout />} />
           </Routes>

@@ -10,9 +10,9 @@ import LocationSection from '../components/ui/Location';
 
 const HomePage: React.FC = () => {
   const images = [
-    '/images/closeup-shot-delicious-cream-puff-with-strawberries.jpg',
-    '/images/delicious-unhealthy-pastry-copy-space.jpg',
-    '/images/variety-pastries-wooden-boards.jpg',
+    '/images/closeup-shot-delicious-cream-puff-with-strawberries-wooden-table_181624-22715.jpg',
+    '/images/delicious-unhealthy-pastry-copy-space_23-2148516577.jpg',
+    '/images/variety-pastries-wooden-boards_114579-17198.jpg',
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
