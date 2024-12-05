@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate, Link } from 'react-router-dom';
-import { ChevronDown, Cake } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ChevronDown } from 'lucide-react';
 import productsData from '../data/products.json';
 import ProductCard from '../components/product-ui/productCard';
-import Button from '../components/ui/Button';
+import { useCart, CartItem } from '../context/cartContext';
 
 interface Product {
   id: string;
@@ -27,12 +27,15 @@ const CategoriesPage: React.FC = () => {
   const navigate = useNavigate();
   const categories: Category[] = productsData.categories;
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-  const [featuredCategory, setFeaturedCategory] = useState<Category | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { addToCart } = useCart();
 
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * categories.length);
-    setFeaturedCategory(categories[randomIndex]);
+    if (categories.length > 0) {
+      // Set a random featured category if needed
+      const randomIndex = Math.floor(Math.random() * categories.length);
+      setSelectedCategory(categories[randomIndex]);
+    }
   }, [categories]);
 
   const handleCategoryClick = (category: Category) => {
@@ -41,8 +44,15 @@ const CategoriesPage: React.FC = () => {
   };
 
   const handleAddToCart = (productId: string) => {
-    console.log(`Added product ${productId} to cart.`);
-    // Implement your cart logic here
+    const product = selectedCategory?.products.find((p) => p.id === productId);
+    if (product) {
+      const cartItem: CartItem = {
+        ...product,
+        quantity: 1,
+      };
+      addToCart(cartItem);
+      console.log(`Added product ${productId} to cart.`);
+    }
   };
 
   return (
@@ -116,21 +126,22 @@ const CategoriesPage: React.FC = () => {
                 <div className="p-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {selectedCategory.products.map((product) => (
-                     <ProductCard
-                     variant="display" // Specify the display variant
-                     product={{
-                       id: product.id,
-                       name: product.name,
-                       price: product.price,
-                       image: product.image,
-                     }}
-                     quantity={1} // Default quantity for display variant
-                     onQuantityChange={(newQuantity) => {
-                       console.log(`Quantity changed to ${newQuantity} for product ${product.id}`);
-                       // Implement your logic for handling quantity changes
-                     }}
-                     onAddToCart={() => handleAddToCart(product.id)}
-                   />
+                      <ProductCard
+                        key={product.id}
+                        variant="display" // Specify the display variant
+                        product={{
+                          id: product.id,
+                          name: product.name,
+                          price: product.price,
+                          image: product.image,
+                        }}
+                        quantity={1} // Default quantity for display variant
+                        onQuantityChange={(newQuantity) => {
+                          console.log(`Quantity changed to ${newQuantity} for product ${product.id}`);
+                          // Implement your logic for handling quantity changes
+                        }}
+                        onAddToCart={() => handleAddToCart(product.id)}
+                      />
                     ))}
                   </div>
                 </div>
