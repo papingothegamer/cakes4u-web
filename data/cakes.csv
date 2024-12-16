@@ -1,0 +1,6 @@
+name,description,price,image,category,available,created_at
+Classic Chocolate,"Rich chocolate layers with dark chocolate ganache and chocolate shavings. Ingredients: chocolate, cream, butter, sugar, flour.",35.99,https://images.unsplash.com/photo-1578985545062-69928b1d9587,chocolate,true,2024-03-15T00:00:00Z
+Vanilla Dream,"Light and fluffy vanilla cake with vanilla bean buttercream. Ingredients: vanilla, cream, butter, sugar, flour.",32.99,https://images.unsplash.com/photo-1464349095431-e9a21285b5f3,vanilla,true,2024-03-15T00:00:00Z
+Red Velvet Delight,"Smooth red velvet cake with cream cheese frosting. Ingredients: cocoa, buttermilk, cream cheese, vanilla, flour.",38.99,https://images.unsplash.com/photo-1586788680434-30d324b2d46f,specialty,true,2024-03-15T00:00:00Z
+Strawberry Fields,"Fresh strawberry cake with strawberry compote filling. Ingredients: strawberries, cream, butter, sugar, flour.",36.99,https://images.unsplash.com/photo-1488477304112-4944851de03d,fruit,true,2024-03-15T00:00:00Z
+Lemon Bliss,"Zesty lemon cake with lemon curd filling. Ingredients: lemon, butter, sugar, flour, eggs.",34.99,https://images.unsplash.com/photo-1519869325930-281384150729,fruit,true,2024-03-15T00:00:00Z

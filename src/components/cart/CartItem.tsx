@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Trash2, Plus, Minus } from 'lucide-react';
 import { CartItem as CartItemType } from '../../types';
 
 interface CartItemProps {
-  item: CartItemType;
+  item: CartItemType; 
   onUpdateQuantity: (id: string, quantity: number) => void;
   onRemove: (id: string) => void;
 }
@@ -17,13 +18,17 @@ export const CartItem: React.FC<CartItemProps> = ({ item, onUpdateQuantity, onRe
       exit={{ opacity: 0 }}
       className="flex items-center space-x-4 border-b py-4"
     >
-      <img
-        src={item.cake.image}
-        alt={item.cake.name}
-        className="w-24 h-24 object-cover rounded"
-      />
+      <Link to={`/product/${item.cake.id}`} className="flex-shrink-0">
+        <img
+          src={item.cake.image}
+          alt={item.cake.name}
+          className="w-24 h-24 object-cover rounded"
+        />
+      </Link>
       <div className="flex-1">
-        <h3 className="text-lg font-semibold">{item.cake.name}</h3>
+        <Link to={`/product/${item.cake.id}`}>
+          <h3 className="text-lg font-semibold hover:text-pink-500">{item.cake.name}</h3>
+        </Link>
         <p className="text-gray-500">${item.cake.price.toFixed(2)}</p>
       </div>
       <div className="flex items-center space-x-2">

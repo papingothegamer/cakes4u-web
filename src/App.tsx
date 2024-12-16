@@ -1,12 +1,16 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { Navbar } from './components/Navbar';
+import  { Navbar }  from './components/Navbar';
 import { Home } from './pages/Home';
 import { Menu } from './pages/Menu';
+import { Product } from './pages/Product';
 import { Cart } from './pages/Cart';
 import { Account } from './pages/Account';
 import { CustomOrders } from './pages/CustomOrders';
+import { Login } from './pages/Login';
+import { Signup } from './pages/SignUp';
+import { Verification } from './pages/Verification';
+import { ProtectedRoute } from './components/routes/ProtectedRoute';
 
 function App() {
   return (
@@ -17,8 +21,19 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/menu" element={<Menu />} />
+            <Route path="/product/:id" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/account" element={<Account />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/verification" element={<Verification />} />
+            <Route 
+              path="/account" 
+              element={
+                <ProtectedRoute>
+                  <Account />
+                </ProtectedRoute>
+              } 
+            />
             <Route path="/custom-orders" element={<CustomOrders />} />
           </Routes>
         </div>
@@ -28,4 +43,4 @@ function App() {
   );
 }
 
-export default App;
+export default App

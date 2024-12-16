@@ -1,14 +1,44 @@
-import React from 'react';
 import { useStore } from '../../store/useStore';
 import { CartItem } from '../../components/cart/CartItem';
 import { CartSummary } from '../../components/cart/CartSummary';
+import { checkoutService } from '../../services/checkoutService';
+import { useAuth } from '../../hooks/useAuth';
+import { toast } from 'react-hot-toast';
+import { stripe } from '../../lib/stripe';
 
 export const Cart = () => {
   const { cart, removeFromCart, updateQuantity } = useStore();
+  const { user } = useAuth();
 
   const handleCheckout = async () => {
-    // Implement Stripe checkout here
-    console.log('Proceeding to checkout...');
+    if (!user) {
+      toast.error('Please sign in to checkout');
+      return;
+    }
+
+    if (!stripe) {
+      toast.error('Payment system is not available');
+      return;
+    }
+
+    try {
+      const session = await checkoutService.createCheckoutSession(cart);
+      
+      if (session.sessionId) {
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.sessionId
+        });
+
+        if (result.error) {
+          toast.error(result.error.message || 'Checkout failed');
+        }
+      }
+    } catch (error) {
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : 'An error occurred during checkout';
+      toast.error(errorMessage);
+    }
   };
 
   return (

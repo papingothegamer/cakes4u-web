@@ -1,3 +1,8 @@
 import { loadStripe } from '@stripe/stripe-js';
 
-export const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
+if (!stripePublicKey) {
+  throw new Error('Missing Stripe public key');
+}
+
+export const stripe = await loadStripe(stripePublicKey);
