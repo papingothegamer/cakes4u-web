@@ -13,6 +13,7 @@ export const Product = () => {
   const [cake, setCake] = useState<Cake | null>(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+
   const addToCart = useStore((state) => state.addToCart);
 
   useEffect(() => {
@@ -65,10 +66,7 @@ export const Product = () => {
       </button>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
           <img
             src={cake.image}
             alt={cake.name}
@@ -76,55 +74,36 @@ export const Product = () => {
           />
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="space-y-6"
-        >
-          <h1 className="text-4xl font-bold text-gray-900">{cake.name}</h1>
-          <p className="text-xl font-bold text-pink-500">${cake.price.toFixed(2)}</p>
-          
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold">Description</h2>
-            <p className="text-gray-600">{cake.description}</p>
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
+          <div className="flex justify-between items-start">
+            <h1 className="text-4xl font-bold text-gray-900">{cake.name}</h1>
           </div>
+          <p className="text-xl font-bold text-pink-500">${cake.price.toFixed(2)}</p>
+          <p className="text-gray-600">{cake.description}</p>
 
-          {cake.ingredients && cake.ingredients.length > 0 && (
-            <div className="space-y-4">
-              <h2 className="text-xl font-semibold">Ingredients</h2>
-              <ul className="list-disc list-inside text-gray-600">
-                {cake.ingredients.map((ingredient, index) => (
-                  <li key={index}>{ingredient}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          <div className="space-y-4">
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="p-2 rounded-full hover:bg-gray-100"
-              >
-                <Minus className="h-5 w-5" />
-              </button>
-              <span className="text-xl font-semibold">{quantity}</span>
-              <button
-                onClick={() => setQuantity(quantity + 1)}
-                className="p-2 rounded-full hover:bg-gray-100"
-              >
-                <Plus className="h-5 w-5" />
-              </button>
-            </div>
-
+          <div className="flex items-center space-x-4">
             <button
-              onClick={handleAddToCart}
-              className="w-full bg-pink-500 text-white py-3 rounded-full hover:bg-pink-600 transition-colors flex items-center justify-center space-x-2"
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              className="p-2 rounded-full hover:bg-gray-100"
             >
-              <ShoppingCart className="h-5 w-5" />
-              <span>Add to Cart</span>
+              <Minus className="h-5 w-5" />
+            </button>
+            <span className="text-xl font-semibold">{quantity}</span>
+            <button
+              onClick={() => setQuantity(quantity + 1)}
+              className="p-2 rounded-full hover:bg-gray-100"
+            >
+              <Plus className="h-5 w-5" />
             </button>
           </div>
+
+          <button
+            onClick={handleAddToCart}
+            className="w-full bg-pink-500 text-white py-3 rounded-full hover:bg-pink-600 transition-colors flex items-center justify-center space-x-2"
+          >
+            <ShoppingCart className="h-5 w-5" />
+            <span>Add to Cart</span>
+          </button>
         </motion.div>
       </div>
     </div>

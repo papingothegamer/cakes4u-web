@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Settings, ShoppingBag, Heart } from 'lucide-react';
+import { User, ShoppingBag } from 'lucide-react';
 import { ProfileSettings } from './components/ProfileSettings';
 import { OrderHistory } from './components/OrderHistory';
-import { SavedProducts } from './components/SavedProducts';
 
-type ActiveSection = 'profile' | 'orders' | 'favorites' | null;
+type ActiveSection = 'profile' | 'orders' | null;
 
 export const Account = () => {
   const [activeSection, setActiveSection] = useState<ActiveSection>(null);
@@ -16,8 +15,6 @@ export const Account = () => {
         return <ProfileSettings />;
       case 'orders':
         return <OrderHistory />;
-      case 'favorites':
-        return <SavedProducts />;
       default:
         return null;
     }
@@ -27,7 +24,7 @@ export const Account = () => {
     <div className="max-w-7xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold text-gray-900 mb-8">My Account</h1>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <motion.div
           whileHover={{ scale: 1.02 }}
           className={`bg-white p-6 rounded-lg shadow-md cursor-pointer ${
@@ -54,20 +51,6 @@ export const Account = () => {
             <h2 className="text-xl font-semibold">Orders</h2>
           </div>
           <p className="text-gray-600 mb-4">View your order history and track current orders</p>
-        </motion.div>
-
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          className={`bg-white p-6 rounded-lg shadow-md cursor-pointer ${
-            activeSection === 'favorites' ? 'ring-2 ring-pink-500' : ''
-          }`}
-          onClick={() => setActiveSection('favorites')}
-        >
-          <div className="flex items-center space-x-4 mb-4">
-            <Heart className="h-6 w-6 text-pink-500" />
-            <h2 className="text-xl font-semibold">Favorites</h2>
-          </div>
-          <p className="text-gray-600 mb-4">Access your favorite cakes and saved designs</p>
         </motion.div>
       </div>
 
